@@ -1,0 +1,28 @@
+[worldserver]
+
+########################################
+# mod-temucraft-housing
+########################################
+#
+#    Temucraft.Housing.Enable
+#        Description: Guild houses. The guild master buys a location at the Housing Steward (creature 608802);
+#                     members travel there from the steward or with .guildhouse.
+#        Default:     1
+
+Temucraft.Housing.Enable = 1
+
+#
+#    Temucraft.Housing.Price
+#    Temucraft.Housing.RefundPercent
+#        Description: Price of a guild house in copper, and how much of it the guild master gets back when selling.
+#        Default:     10000000 (1000 gold), 50
+
+Temucraft.Housing.Price = 10000000
+Temucraft.Housing.RefundPercent = 50
+
+#
+#    Temucraft.Housing.Cooldown
+#        Description: Seconds between two trips to the guild house (GMs skip it).
+#        Default:     1800
+
+Temucraft.Housing.Cooldown = 1800
