@@ -1,4 +1,5 @@
 -- mod-temucraft-housing: the places a guild can own, the Housing Steward and the module's texts
+SET @Steward := 608802;
 CREATE TABLE IF NOT EXISTS `mod_temucraft_housing_location` (
   `id` INT UNSIGNED NOT NULL,
   `map` SMALLINT UNSIGNED NOT NULL,
@@ -48,18 +49,18 @@ INSERT INTO `mod_temucraft_housing_location` (`id`, `map`, `x`, `y`, `z`, `o`, `
 (39, 530, -483.402, 7461.945, 186.121, 0, 'Challe''s Home for Little Tykes (Nagrand)'),
 (40, 530, 2387.754, 3191.757, 152.669, 0, 'Nova''s Shrine (Netherstorm)');
 
-DELETE FROM `creature_template` WHERE `entry` = 608802;
+DELETE FROM `creature_template` WHERE `entry` = @Steward;
 INSERT INTO `creature_template` (`entry`, `name`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `faction`, `npcflag`,
   `speed_walk`, `speed_run`, `rank`, `unit_class`, `unit_flags`, `type`, `type_flags`, `AIName`, `MovementType`, `HealthModifier`, `RegenHealth`,
   `flags_extra`, `ScriptName`) VALUES
-(608802, 'Steward Aldric', 'Guild Houses', '', 0, 80, 80, 2, 35, 1, 1, 1.14286, 0, 1, 768, 7, 0, '', 0, 1, 1, 2, '');
-DELETE FROM `creature_template_model` WHERE `CreatureID` = 608802;
+(@Steward, 'Steward Aldric', 'Guild Houses', '', 0, 80, 80, 2, 35, 1, 1, 1.14286, 0, 1, 768, 7, 0, '', 0, 1, 1, 2, '');
+DELETE FROM `creature_template_model` WHERE `CreatureID` = @Steward;
 INSERT INTO `creature_template_model` (`CreatureID`, `Idx`, `CreatureDisplayID`, `DisplayScale`, `Probability`, `VerifiedBuild`)
-SELECT 608802, 0, `CreatureDisplayID`, 1, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 28701 AND `Idx` = 0;
+SELECT @Steward, 0, `CreatureDisplayID`, 1, 1, 0 FROM `creature_template_model` WHERE `CreatureID` = 28701 AND `Idx` = 0;
 
-DELETE FROM `npc_text` WHERE `ID` = 608802;
+DELETE FROM `npc_text` WHERE `ID` = @Steward;
 INSERT INTO `npc_text` (`ID`, `text0_0`, `text0_1`, `Probability0`) VALUES
-(608802, 'A guild needs a hall to call its own. I keep the deeds to every quiet corner of Azeroth worth living in.', '', 1);
+(@Steward, 'A guild needs a hall to call its own. I keep the deeds to every quiet corner of Azeroth worth living in.', '', 1);
 
 DELETE FROM `module_string` WHERE `module` = 'mod-temucraft-housing';
 INSERT INTO `module_string` (`module`, `id`, `string`) VALUES

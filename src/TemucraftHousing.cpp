@@ -29,8 +29,6 @@ using namespace Acore::ChatCommands;
 namespace
 {
     constexpr char const* MODULE = "mod-temucraft-housing";
-    constexpr uint32 NPC_STEWARD = 608802;
-    constexpr uint32 TEXT_STEWARD = 608802;
     constexpr uint32 PAGE = 20;
 
     enum Str : uint32
@@ -70,7 +68,7 @@ namespace
     template<typename... Args>
     std::string Text(Player* player, uint32 id, Args&&... args) { return Acore::StringFormat(Text(player, id), std::forward<Args>(args)...); }
 
-    struct Settings { bool enable = true; uint32 price = 10000000; uint32 refund = 50; uint32 cooldown = 1800; } cfg;
+    struct Settings { bool enable = true; uint32 price = 10000000; uint32 refund = 50; uint32 cooldown = 1800; uint32 steward = 608802, text = 608802; } cfg;
 
     struct Location { uint32 id; uint32 map; float x, y, z, o; std::string name; };
     std::map<uint32, Location> locations;                       // id -> location
@@ -147,7 +145,7 @@ namespace
         }
         else if (IsMaster(player))
             AddGossipItemFor(player, GOSSIP_ICON_TABARD, Text(player, S_BUY_LIST), GOSSIP_SENDER_MAIN, ACT_PAGE);
-        SendGossipMenuFor(player, TEXT_STEWARD, creature->GetGUID());
+        SendGossipMenuFor(player, cfg.text, creature->GetGUID());
     }
 
     void ShowList(Player* player, Creature* creature, uint32 page)
@@ -165,7 +163,7 @@ namespace
             }
             AddGossipItemFor(player, GOSSIP_ICON_TABARD, loc.name, GOSSIP_SENDER_MAIN, ACT_BUY + id, Text(player, S_BUY_CONFIRM, loc.name), cfg.price, false);
         }
-        SendGossipMenuFor(player, TEXT_STEWARD, creature->GetGUID());
+        SendGossipMenuFor(player, cfg.text, creature->GetGUID());
     }
 
     void Buy(Player* player, uint32 locationId)
@@ -202,7 +200,7 @@ public:
 
     bool CanCreatureGossipHello(Player* player, Creature* creature) override
     {
-        if (creature->GetEntry() != NPC_STEWARD) return false;
+        if (creature->GetEntry() != cfg.steward) return false;
         if (!cfg.enable) { ChatHandler(player->GetSession()).SendSysMessage(Text(player, S_DISABLED)); return true; }
         ShowMain(player, creature);
         return true;
@@ -210,7 +208,7 @@ public:
 
     bool CanCreatureGossipSelect(Player* player, Creature* creature, uint32, uint32 action) override
     {
-        if (creature->GetEntry() != NPC_STEWARD) return false;
+        if (creature->GetEntry() != cfg.steward) return false;
         if (action == ACT_GO) { CloseGossipMenuFor(player); Travel(player); }
         else if (action == ACT_SELL) { CloseGossipMenuFor(player); Sell(player); }
         else if (action >= ACT_BUY) { CloseGossipMenuFor(player); Buy(player, action - ACT_BUY); }
@@ -266,6 +264,8 @@ public:
         cfg.price = sConfigMgr->GetOption<uint32>("Temucraft.Housing.Price", 10000000);
         cfg.refund = std::min<uint32>(sConfigMgr->GetOption<uint32>("Temucraft.Housing.RefundPercent", 50), 100);
         cfg.cooldown = sConfigMgr->GetOption<uint32>("Temucraft.Housing.Cooldown", 1800);
+        cfg.steward = sConfigMgr->GetOption<uint32>("Temucraft.Housing.Steward", 608802);
+        cfg.text = sConfigMgr->GetOption<uint32>("Temucraft.Housing.Text", 608802);
     }
     void OnStartup() override { Load(); }
 };

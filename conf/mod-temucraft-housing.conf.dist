@@ -26,3 +26,17 @@ Temucraft.Housing.RefundPercent = 50
 #        Default:     1800
 
 Temucraft.Housing.Cooldown = 1800
+
+#
+#    Temucraft.Housing.Steward
+#        Description: Creature of the housing steward. Must match data/sql.
+#        Default:     608802
+
+Temucraft.Housing.Steward = 608802
+
+#
+#    Temucraft.Housing.Text
+#        Description: npc_text of the steward's menus. Must match data/sql.
+#        Default:     608802
+
+Temucraft.Housing.Text = 608802
