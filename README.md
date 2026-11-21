@@ -2,15 +2,15 @@
 
 Guild houses for AzerothCore 3.3.5a. 35 quiet corners of Azeroth and Outland (more can be added in the
 `mod_temucraft_housing_location` table) can each belong to one guild. The guild master buys a free one at the
-Housing Steward; every member can then travel there from the steward or with `.guildhouse`. The guild master can sell
+Housing Steward; every member can then travel there from the steward or with `.temucraft guildhouse`. The guild master can sell
 the house back for half the price (configurable). A disbanded guild loses its house.
 
 ## Use
 
 - Spawn the steward in your capitals: `.npc add 608802`.
-- `.guildhouse`: travel to your guild house (not in combat, battlegrounds, arenas, instances or on flights; every 30
+- `.temucraft guildhouse`: travel to your guild house (not in combat, battlegrounds, arenas, instances or on flights; every 30
   minutes by default).
-- `.guildhouse reload` (admin): reload locations and owners after editing the tables.
+- `.temucraft guildhouse reload` (admin): reload locations and owners after editing the tables.
 
 ## Install
 

@@ -1,7 +1,7 @@
 /*
  * mod-temucraft-housing: guild houses. Every location in mod_temucraft_housing_location (world) can belong to one
  * guild. The guild master buys a free one at the Housing Steward (creature 608802) for Temucraft.Housing.Price; guild
- * members then travel there from the steward or with .guildhouse (every Temucraft.Housing.Cooldown seconds, never
+ * members then travel there from the steward or with .temucraft guildhouse (every Temucraft.Housing.Cooldown seconds, never
  * in combat, battlegrounds, arenas or instances). The guild master can sell the house back for
  * Temucraft.Housing.RefundPercent of the price. A guild that disbands loses its house.
  *
@@ -237,20 +237,20 @@ public:
     ChatCommandTable GetCommands() const override
     {
         static ChatCommandTable sub = {
-            { "",       HandleGo,     SEC_PLAYER,        Console::No },
+            { "",       HandleGo,     100850,        Console::No },
             { "reload", HandleReload, 100801 /* SEC_ADMINISTRATOR -> RBAC */, Console::Yes },
         };
-        static ChatCommandTable table = { { "guildhouse", sub } };
+        static ChatCommandTable table = { { "temucraft guildhouse", sub } };
         return table;
     }
-    // .guildhouse: travel to your guild's house
+    // .temucraft guildhouse: travel to your guild's house
     static bool HandleGo(ChatHandler* handler)
     {
         if (!cfg.enable) { handler->SendSysMessage(Text(handler->GetPlayer(), S_DISABLED)); return true; }
         Travel(handler->GetPlayer());
         return true;
     }
-    // .guildhouse reload: reload locations and owners
+    // .temucraft guildhouse reload: reload locations and owners
     static bool HandleReload(ChatHandler* handler) { Load(); handler->PSendSysMessage("{} guild house locations, {} owned.", locations.size(), houseOf.size()); return true; }
 };
 

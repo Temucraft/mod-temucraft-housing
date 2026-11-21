@@ -6,7 +6,7 @@
 #
 #    Temucraft.Housing.Enable
 #        Description: Guild houses. The guild master buys a location at the Housing Steward (creature 608802);
-#                     members travel there from the steward or with .guildhouse.
+#                     members travel there from the steward or with .temucraft guildhouse.
 #        Default:     1
 
 Temucraft.Housing.Enable = 1
