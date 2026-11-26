@@ -10,6 +10,8 @@ the house back for half the price (configurable). A disbanded guild loses its ho
 - Spawn the steward in your capitals: `.npc add 608802`.
 - `.temucraft guildhouse`: travel to your guild house (not in combat, battlegrounds, arenas, instances or on flights; every 30
   minutes by default).
+- The steward's "go to the guild house" line asks "Teleport to: <house>" first (Accept / Cancel), from
+  `TemucraftPlayerSettings.h` (same file as mod-temucraft-player-settings); players who turned "Ask before teleports and portals" off get it without the popup.
 - `.temucraft guildhouse reload` (admin): reload locations and owners after editing the tables.
 
 ## Install

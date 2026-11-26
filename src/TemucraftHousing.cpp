@@ -20,6 +20,7 @@
 #include "ScriptMgr.h"
 #include "ScriptedGossip.h"
 #include "StringFormat.h"
+#include "TemucraftPlayerSettings.h"
 #include "WorldSession.h"
 #include <map>
 #include <unordered_map>
@@ -138,7 +139,8 @@ namespace
         if (!player->GetGuildId()) { ChatHandler(player->GetSession()).SendSysMessage(Text(player, S_NO_GUILD)); CloseGossipMenuFor(player); return; }
         if (Location const* loc = HouseOf(player))
         {
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, Text(player, S_GO, loc->name), GOSSIP_SENDER_MAIN, ACT_GO);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, Text(player, S_GO, loc->name), GOSSIP_SENDER_MAIN, ACT_GO,
+                             TemucraftTeleportBox(player, loc->name), 0, false);   // "Teleport to: ..." unless turned off
             if (IsMaster(player))
                 AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, Text(player, S_SELL), GOSSIP_SENDER_MAIN, ACT_SELL,
                                  Text(player, S_SELL_CONFIRM, Money(cfg.price * cfg.refund / 100)), 0, false);
