@@ -39,4 +39,10 @@ fall back to the English built into the script.
 
 Doesn't need any other module. No core or client changes.
 
+## Shared headers
+
+`TemucraftPlayerSettings.h` and `TemucraftModuleText.h` in `src/` are shared with other Temucraft modules and must stay the same everywhere (all modules
+share one include path). `_tools\check_shared_headers.py` checks the copies (`--fix` copies the canonical one over
+them). The canonical `TemucraftPlayerSettings.h` is in mod-temucraft-player-settings, `TemucraftModuleText.h` is in mod-temucraft. Change the canonical copy, then run the check with `--fix`.
+
 Part of the Temucraft modules for AzerothCore 3.3.5a.
